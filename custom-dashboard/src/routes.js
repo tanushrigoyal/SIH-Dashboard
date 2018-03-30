@@ -11,8 +11,9 @@ class Routes extends Component {
 
             <Router>
             <Switch>
-            <Route exact path='/' component={Login}/>
+            <Route exact path='/login' component={Login}/>
             <Route path='/home' component={App}/>
+            <Redirect from="/" to="/login" />
               </Switch>
               </Router>
         );
