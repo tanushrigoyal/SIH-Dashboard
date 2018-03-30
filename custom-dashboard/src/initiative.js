@@ -9,6 +9,8 @@ import Modal from 'material-ui/Modal';
 import TextField from 'material-ui/TextField';
 import {FormLabel, FormControl} from 'material-ui/Form';
 import Input, { InputLabel, InputAdornment } from 'material-ui/Input';
+import Table, { TableBody, TableCell, TableHead, TableRow } from 'material-ui/Table';
+import Paper from 'material-ui/Paper';
 
 
 /*function rand() {
@@ -36,22 +38,44 @@ const styles = theme => ({
   },
   card: {
     minWidth: 275,
-  }
+},
+root: {
+    width: '100%',
+    marginTop: theme.spacing.unit * 3,
+    overflowX: 'auto',
+  },
+  table: {
+    minWidth: 700,
+  },
 });
+
+let id = 0;
+function createData(name, calories, fat, carbs, protein) {
+  id += 1;
+  return { id, name, calories, fat, carbs, protein };
+}
+
+// const data = [
+//   createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
+//   createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
+//   createData('Eclair', 262, 16.0, 24, 6.0),
+//   createData('Cupcake', 305, 3.7, 67, 4.3),
+//   createData('Gingerbread', 356, 16.0, 49, 3.9),
+// ];
 
 
 class Initiative extends React.Component{
 
     state = {
       open: false,
-      name:""
+      name:"",
     };
-    
-  
+
+
   handleOpen = () => {
     this.setState({ open: true });
   };
-  
+
   handleClose = () => {
     this.setState({ open: false });
   };
@@ -67,7 +91,8 @@ createInitiative = () => {
   console.log(this.state.name);
   axios.post('https://aicte.herokuapp.com/initiative', {
     owner: '1',
-    name: this.state.name
+    name: this.state.name,
+    desc: "smart city"
   })
   .then(function (response) {
     console.log(response);
@@ -79,6 +104,9 @@ createInitiative = () => {
 
   render(){
     const { classes, theme } = this.props;
+    var data = this.props.tableData;
+    console.log(data);
+
     return (
     <div>
       <Card className={classes.card}>
@@ -98,14 +126,30 @@ createInitiative = () => {
           <InputLabel htmlFor="name-simple">Enter Name</InputLabel>
           <Input required id="name-simple" value={this.state.name} onChange={this.handleChange('name')} />
         </FormControl>
-            
+
             <Button onClick={this.createInitiative}>Submit</Button>
           </div>
         </Modal>
-        <Button color="primary" variant="raised" size="small" onClick={this.showInitiative}>Show Initiatives</Button>
         </CardContent>
         <CardActions>
-          
+        <Paper className={classes.root}>
+              <Table className={classes.table}>
+                <TableHead>
+                  <TableRow>
+                    <TableCell>Initiative Name</TableCell>
+                    </TableRow>
+                </TableHead>
+                <TableBody>
+                  {data.map(n => {
+                    return (
+                      <TableRow key={n.id}>
+                        <TableCell>{n.name}</TableCell>
+                         </TableRow>
+                    );
+                  })}
+                </TableBody>
+              </Table>
+            </Paper>
         </CardActions>
       </Card>
     </div>

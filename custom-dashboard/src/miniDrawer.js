@@ -22,6 +22,8 @@ import Dashboard from './dashboard';
 import User from './user';
 import Rating from './rating';
 import axios from 'axios';
+import { Link, Redirect } from 'react-router-dom'
+
 const drawerWidth = 240;
 
 var data = [];
@@ -98,6 +100,7 @@ class MiniDrawer extends React.Component {
     showInitiative: false,
     showUser: false,
     showRating: false,
+    tableData: [],
   };
 
   handleDrawerOpen = () => {
@@ -117,19 +120,25 @@ class MiniDrawer extends React.Component {
       showUser: false,
       showRating: false,
     });
+        let self = this;
       axios.get('https://aicte.herokuapp.com/initiative')
       .then(function (response) {
-        console.log(response.data);
         console.log(response.data.length);
+
         for(var i=0;i<response.data.length;i++){
-           data.push({id:response.data[i].ownerID ,name: response.data[i].name});
+           data.push({id:response.data[i].id ,name: response.data[i].name});
         }
         console.log(data);
+        self.setState({
+            tableData: data,
+        })
+
       })
       .catch(function (error) {
         console.log(error);
       });
-      
+
+
   }
 
   parameterClick = () => {
@@ -166,8 +175,12 @@ class MiniDrawer extends React.Component {
   render() {
     const { classes, theme } = this.props;
     var displayComponent;
+
+    var tableData = data;
+
+
     if (this.state.showInitiative) {
-     displayComponent = <Initiative />;
+     displayComponent = <Initiative tableData={this.state.tableData}/>;
  } else if (this.state.showParameter){
      displayComponent = <Parameter />;
  } else if (this.state.showUser){
@@ -177,6 +190,7 @@ class MiniDrawer extends React.Component {
           } else {
         displayComponent = <Dashboard />;
     }
+
     return (
       <div className={classes.root}>
         <AppBar
@@ -212,7 +226,7 @@ class MiniDrawer extends React.Component {
           <Divider />
           <List component="nav">
             <ListItem button onClick={this.initiativeClick}>
-              <ListItemIcon>
+             <ListItemIcon>
                 <InitiativeIcon />
               </ListItemIcon>
               <ListItemText primary="Initiative" />
