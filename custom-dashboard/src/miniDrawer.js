@@ -101,6 +101,7 @@ class MiniDrawer extends React.Component {
     showUser: false,
     showRating: false,
     tableData: [],
+    initiativeId: '',
   };
 
   handleDrawerOpen = () => {
@@ -124,7 +125,7 @@ class MiniDrawer extends React.Component {
       axios.get('https://aicte.herokuapp.com/initiative')
       .then(function (response) {
         console.log(response.data.length);
-
+        data = [];
         for(var i=0;i<response.data.length;i++){
            data.push({id:response.data[i].id ,name: response.data[i].name});
         }
@@ -148,6 +149,17 @@ class MiniDrawer extends React.Component {
       showDasboard: false,
       showUser: false,
       showRating: false,
+    });
+  }
+
+  parameterIdClick = (id) => {
+    this.setState({
+      showInitiative: false,
+      showParameter: true,
+      showDasboard: false,
+      showUser: false,
+      showRating: false,
+      initiativeId: id,
     });
   }
 
@@ -180,9 +192,9 @@ class MiniDrawer extends React.Component {
 
 
     if (this.state.showInitiative) {
-     displayComponent = <Initiative tableData={this.state.tableData}/>;
+     displayComponent = <Initiative tableCellClick={this.parameterIdClick} tableData={this.state.tableData}/>;
  } else if (this.state.showParameter){
-     displayComponent = <Parameter />;
+     displayComponent = <Parameter initiativeId={this.state.initiativeId}/>;
  } else if (this.state.showUser){
         displayComponent = <User />;
     } else if (this.state.showRating){
