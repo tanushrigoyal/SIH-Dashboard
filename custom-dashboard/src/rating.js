@@ -4,6 +4,7 @@ import { withStyles } from 'material-ui/styles';
 import Card, { CardActions, CardContent } from 'material-ui/Card';
 import Button from 'material-ui/Button';
 import Typography from 'material-ui/Typography';
+import Analysis from './analysis';
 
 const styles = {
   card: {
@@ -24,6 +25,7 @@ function SimpleCard(props) {
         </CardContent>
         <CardActions>
           <Button size="small">Learn More</Button>
+          <Analysis/>
         </CardActions>
       </Card>
     </div>
