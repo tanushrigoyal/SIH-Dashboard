@@ -21,8 +21,10 @@ import Parameter from './parameter';
 import Dashboard from './dashboard';
 import User from './user';
 import Rating from './rating';
-
+import axios from 'axios';
 const drawerWidth = 240;
+
+var data = [];
 
 const styles = theme => ({
   root: {
@@ -106,6 +108,7 @@ class MiniDrawer extends React.Component {
     this.setState({ open: false });
   };
 
+
   initiativeClick = () => {
     this.setState({
       showInitiative: true,
@@ -114,6 +117,19 @@ class MiniDrawer extends React.Component {
       showUser: false,
       showRating: false,
     });
+      axios.get('https://aicte.herokuapp.com/initiative')
+      .then(function (response) {
+        console.log(response.data);
+        console.log(response.data.length);
+        for(var i=0;i<response.data.length;i++){
+           data.push({id:response.data[i].ownerID ,name: response.data[i].name});
+        }
+        console.log(data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+      
   }
 
   parameterClick = () => {

@@ -39,6 +39,7 @@ const styles = theme => ({
   }
 });
 
+
 class Initiative extends React.Component{
 
     state = {
@@ -101,7 +102,7 @@ createInitiative = () => {
             <Button onClick={this.createInitiative}>Submit</Button>
           </div>
         </Modal>
-        <Button color="primary" variant="raised" size="small">Show Initiatives</Button>
+        <Button color="primary" variant="raised" size="small" onClick={this.showInitiative}>Show Initiatives</Button>
         </CardContent>
         <CardActions>
           
