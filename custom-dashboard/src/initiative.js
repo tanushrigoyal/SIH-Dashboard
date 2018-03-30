@@ -100,11 +100,13 @@ createInitiative = () => {
   .catch(function (error) {
     console.log(error);
   });
-}
+};
+
 
   render(){
     const { classes, theme } = this.props;
     var data = this.props.tableData;
+    var cellClick = this.props.tableCellClick;
     console.log(data);
 
     return (
@@ -143,7 +145,7 @@ createInitiative = () => {
                   {data.map(n => {
                     return (
                       <TableRow key={n.id}>
-                        <TableCell>{n.name}</TableCell>
+                        <TableCell onClick={() => cellClick(n.id)}>{n.name}</TableCell>
                          </TableRow>
                     );
                   })}

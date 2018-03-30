@@ -11,8 +11,11 @@ const styles = {
   }
 };
 
-function SimpleCard(props) {
-  const { classes } = props;
+class SimpleCard extends React.Component {
+    render(){
+      const { classes, theme } = this.props;
+  var initiativeId = this.props.initiativeId;
+  console.log(initiativeId);
 
   return (
     <div>
@@ -28,6 +31,7 @@ function SimpleCard(props) {
       </Card>
     </div>
   );
+}
 }
 
 SimpleCard.propTypes = {
