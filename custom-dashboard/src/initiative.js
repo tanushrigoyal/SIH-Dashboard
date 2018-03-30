@@ -18,12 +18,14 @@ function SimpleCard(props) {
     <div>
       <Card className={classes.card}>
         <CardContent>
-          <Typography variant="headline" component="h2">
+        <Typography variant="headline" component="h2">
             Initiative
           </Typography>
+        <Button color="primary" variant="raised" size="small">Create</Button>
+        <Button color="primary" variant="raised" size="small">Show Initiatives</Button>
         </CardContent>
         <CardActions>
-          <Button size="small">Learn More</Button>
+          
         </CardActions>
       </Card>
     </div>
