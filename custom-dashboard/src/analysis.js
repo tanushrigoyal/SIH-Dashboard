@@ -8,9 +8,13 @@
 // var adata;
 //
 // class ratingAnalysis extends React.Component{
-//     state = {
-//         data: []
-//     };
+//         constructor(props){
+//           super(props);
+//           this.state={
+//             data:[]
+//           }
+//         }
+//     
 //
 //     analysisReport = ()=>{
 //         let self = this;
@@ -60,9 +64,12 @@
 //   var adata = [];
 //
 //   class ratingAnalysis extends React.Component{
-//     state = {
-//         data: [],
-//     };
+      constructor(props){
+          super(props);
+          this.state={
+            data:[]
+          }
+        }
 //
 //     analysisReport = ()=>{
 //         let self = this;
@@ -70,17 +77,17 @@
 //           .then(function (response) {
 //             console.log(response);
 //             for(var i=0;i<2;i++){
-//             adata[i] = response.data.ratings[i].parameters[i].value;
-//         }
-//         console.log(adata);
-//             self.setState({
-//                 data: adata,
-//             })
+//                adata[i] = response.data.ratings[i].parameters[i].value;
+//              }
+    //         console.log(adata);
+                self.setState({
+                    data: adata,
+                },()=>console.log(self.state.data))
 //           })
 //           .catch(function (error) {
 //             console.log(error);
 //           });
-//         console.log(this.state.data);
+            console.log(this.state.data);
 //     }
 //     render(){
 // return(
